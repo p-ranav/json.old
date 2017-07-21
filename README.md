@@ -9,13 +9,13 @@ int main() {
   json record;
 
   record["projects"]["json"]["year"] = 2017;                         // value of type int  
-  record["projects"]["json"]["url"] = "http://json.org";             // value of type string
+  record["projects"]["json"]["url"] = "https://json.org";            // value of type string
   record["projects"]["json"]["commits/day"] = 5.21;                  // value of type double
 
   auto keys = record["projects"]["json"].keys();                     // ["year", "url", "commits/day"]
   auto query = record["projects"]["json"]["commits/day"].value();    // query = "5.21"
 
-  record.print();
+  record.print();                                                    // pretty print of JSON
   /*
   {
       "projects" :
@@ -29,7 +29,6 @@ int main() {
       }
   }
   */
-  system("PAUSE");
 }
 ```
 
