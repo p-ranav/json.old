@@ -117,10 +117,6 @@ void json::print(size_t indent_by, bool leaf, bool last_leaf) {
         }
       }
       std::cout << indent << '"' << keys[k] << '"';
-      if (!last_leaf) {
-        std::cout << ",";
-      }
-      std::cout << std::endl;
     }
   }
   indent = "";
@@ -128,5 +124,9 @@ void json::print(size_t indent_by, bool leaf, bool last_leaf) {
     indent += " ";
   }
   if (!leaf)
-    std::cout << indent << "}" << std::endl;
+    std::cout << indent << "}";
+  if (!last_leaf) {
+    std::cout << ",";
+  }
+  std::cout << std::endl;
 }

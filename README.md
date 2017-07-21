@@ -36,7 +36,7 @@ int main() {
             "commits/day" : "5.21",
             "url" : "https://json.org",
             "year" : "2017"
-        }
+        },
         "llama" :
         {
             "domain" : "Linear Algebra",
