@@ -1,6 +1,8 @@
 # JSON Manipulation Library for C++
 
-## User Guide
+## Usage Guide
+
+### Source Code
 
 ```cpp
 #include <json.h>
@@ -12,23 +14,35 @@ int main() {
   record["projects"]["json"]["url"] = "https://json.org";            // value of type string
   record["projects"]["json"]["commits/day"] = 5.21;                  // value of type double
 
+  // So easy to create new key-value pairs
+  record["projects"]["llama"]["language"] = "C++";
+  record["projects"]["llama"]["domain"] = "Linear Algebra";
+
   auto keys = record["projects"]["json"].keys();                     // ["year", "url", "commits/day"]
   auto query = record["projects"]["json"]["commits/day"].value();    // query = "5.21"
 
   record.print();                                                    // pretty print of JSON
-  /*
-  {
-      "projects" :
-      {
-          "json" :
-          {
-              "commits/day" : "5.21",
-              "url" : "https://json.org",
-              "year" : "2017"
-          }
-      }
-  }
-  */
+}
+```
+
+### Console
+
+```json
+{
+    "projects" :
+    {
+        "json" :
+        {
+            "commits/day" : "5.21",
+            "url" : "https://json.org",
+            "year" : "2017"
+        }
+        "llama" :
+        {
+            "domain" : "Linear Algebra",
+            "language" : "C++"
+        }
+    }
 }
 ```
 
