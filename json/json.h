@@ -63,7 +63,7 @@ public:
         for (size_t i = indent_by; i < indent_by + 4; i++) {
           key_indent += " ";
         }
-        std::cout << key_indent << keys[k] << " : ";
+        std::cout << key_indent << '"' << keys[k] << '"' << " : ";
         size_t nested_indent_by = indent_by + 4;
         // detect if leaf or not
         bool leaf_node = false;

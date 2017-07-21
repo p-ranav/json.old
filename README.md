@@ -1,5 +1,37 @@
 # JSON Manipulation Library for C++
 
+## User Guide
+
+```cpp
+#include <json.h>
+
+int main() {
+  json record;
+  
+  record["projects"]["json"]["year"] = 2017;                                             // value of type int  
+  record["projects"]["json"]["url"] = "https://github.com/pranav-srinivas-kumar/json";   // value of type string
+  record["projects"]["json"]["commits/day"] = 5.21;                                      // value of type string
+  
+  auto keys = record["projects"]["json"].keys();                                         // ["year", "url", "commits/day"]
+  auto query = record["projects"]["json"]["commits/day"].value();                        // query = "5.21"
+  
+  record.print();                                                                        // pretty print of json data
+  /*
+  {
+      "projects" :
+      {
+          "json" :
+          {
+              "commits/day" : "5.21",
+              "url" : "https://github.com/pranav-srinivas-kumar/json",
+              "year" : "2017"
+          }
+      }
+  }
+  */
+}
+```
+
 ## LICENSE
 
 Copyright (c) 2017 Pranav Srinivas Kumar <pranav.srinivas.kumar@gmail.com>
