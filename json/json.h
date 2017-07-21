@@ -18,10 +18,11 @@ public:
 
   // Getters
   auto keys();                        // returns json keys at current level
-  std::string json::value();          // returns value of json at current level
-  void print(size_t indent_by = 0, 
-    bool leaf = false, 
-    bool last_leaf = false);          // pretty prints json data
+  std::string json::value();          // returns value of json at current level    
+
+  void print(int indent = 4, 
+    bool comma_on_leaf = false,
+    bool comma_on_bracket = false);   // pretty prints json data
 
 
 private:
@@ -45,7 +46,6 @@ json& json::operator[](std::string key) {
 // TODO: check if conversion to string is possible/successful 
 template<typename Type>
 json& json::operator=(Type rhs) {
-  std::string result;
   std::ostringstream convert;
   convert << rhs;
   data.insert(std::pair<std::string, json*>(convert.str(), nullptr));
@@ -72,61 +72,46 @@ std::string json::value() {
 }
 
 // pretty prints json data
-void json::print(size_t indent_by, bool leaf, bool last_leaf) {
-  std::string indent = "";
-  size_t key_indent = indent_by;
-  while (key_indent > 0 && !leaf) {
-    indent += " ";
-    key_indent--;
+void json::print(int indent, bool comma_on_leaf, bool comma_on_bracket) {
+  std::string indent_str(indent - 4, ' ');
+  bool leaf_node = false;
+
+  for (auto& entry : data) {
+    if (entry.second == nullptr) {   
+      leaf_node = true;
+      std::cout << '"' << entry.first << '"';
+      if(comma_on_leaf)
+        std::cout << ',';
+    }
   }
-  if (!leaf)
-    std::cout << indent << "{" << std::endl;
-  auto keys = this->keys();
-  for (size_t k = 0; k < keys.size(); k++) {
-    if (data[keys[k]] != nullptr) {
-      std::string key_indent = indent;
-      for (size_t i = indent_by; i < indent_by + 4; i++) {
-        key_indent += " ";
-      }
-      std::cout << key_indent << '"' << keys[k] << '"' << " : ";
-      size_t nested_indent_by = indent_by + 4;
-      // detect if leaf or not
-      bool leaf_node = false;
-      if (data[keys[k]]->keys().size() == 1) {
-        std::string leaf_key = data[keys[k]]->keys()[0];
-        if (data[keys[k]]->data[leaf_key] == nullptr) {
-          leaf_node = true;
-        }
-        else {
-          std::cout << std::endl;
-        }
+
+  if (!leaf_node) {
+    if (indent - 4 > 0)
+      std::cout << std::endl;
+    std::cout << indent_str << '{' << std::endl;
+  }
+
+  for (auto it = data.begin(); it != data.end(); ++it) {
+    if (it->second != nullptr) {
+      indent_str = std::string(indent, ' ');
+      std::cout << indent_str << '"' << it->first << '"' << " : ";
+      if (std::next(it, 1) != data.end()) {
+        it->second->print(indent + 4, true, true);
       }
       else {
-        std::cout << std::endl;
+        it->second->print(indent + 4, false, false);
       }
-      bool last_leaf_node = false;
-      if (leaf_node && k + 1 == keys.size()) {
-        last_leaf_node = true;
-      }
-      data[keys[k]]->print(nested_indent_by, leaf_node, last_leaf_node);
+      indent_str = std::string(indent - 4, ' ');
     }
     else {
-      if (!leaf) {
-        for (size_t i = indent_by; i < indent_by + 4; i++) {
-          indent += " ";
-        }
-      }
-      std::cout << indent << '"' << keys[k] << '"';
+      std::cout << std::endl;
     }
   }
-  indent = "";
-  for (size_t i = 0; i < indent_by; i++) {
-    indent += " ";
-  }
-  if (!leaf)
-    std::cout << indent << "}";
-  if (!last_leaf) {
-    std::cout << ",";
-  }
-  std::cout << std::endl;
+
+  if (!leaf_node)
+    std::cout << indent_str << "}";
+  if (!leaf_node && comma_on_bracket)
+    std::cout << ',';
+  if (!leaf_node)
+    std::cout << std::endl;
 }
