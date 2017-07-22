@@ -3,9 +3,9 @@
 int main() {
   json record;
 
-  record["projects"]["json"]["year"] = 2017;                         // value of type int  
-  record["projects"]["json"]["url"] = "https://json.org";            // value of type string
-  record["projects"]["json"]["commits/day"] = 5.21;                  // value of type double
+  record["projects"]["json"]["year"] = 2017;                         
+  record["projects"]["json"]["url"] = "https://json.org";            
+  record["projects"]["json"]["commits/day"] = 5.21;
 
   record["projects"]["llama"]["language"] = "C++";
   record["projects"]["llama"]["domain"] = "Linear Algebra";
