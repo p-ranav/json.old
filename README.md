@@ -1,4 +1,4 @@
-# JSON Manipulation Library for C++
+# JSON Manipulation Header-only Library for C++
 
 ## Trivially create and manipulate JSON with one header
 
