@@ -199,11 +199,13 @@ void json::write(std::string file_path) {
     std::cout << "Unable to open file: " << file_path;
 }
 
+// returns true if key is an integer
 bool json::is_integer(const std::string& key) {
   return !key.empty() && std::find_if(key.begin(),
     key.end(), [](char c) { return !std::isdigit(c); }) == key.end();
 }
 
+// returns true if key is a double
 bool json::is_double(const std::string& key) {
     std::istringstream iss(key);
     double number;
