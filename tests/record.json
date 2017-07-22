@@ -1,0 +1,24 @@
+{
+    "projects" : 
+    {
+        "json" : 
+        {
+            "commits/day" : 5.21,
+            "is this cool?" : true,
+            "url" : "https://json.org",
+            "year" : 2017
+        },
+        "llama" : 
+        {
+            "domain" : "Linear Algebra",
+            "language" : "C++",
+            "url" : null
+        },
+        "rosmod" : 
+        {
+            "active?" : false,
+            "language" : "C++/Python",
+            "url" : "https://github.com/rosmod"
+        }
+    }
+}

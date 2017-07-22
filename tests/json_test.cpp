@@ -23,7 +23,7 @@ int main() {
 
     std::string record_string = record.to_string();                    // returns a string of the json
     record.print();                                                    // pretty prints json data
-    record.write("clone.json");                                        // writes json to file
+    record.write("record.json");                                       // writes json to file
   }
   system("PAUSE");
 }
