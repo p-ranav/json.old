@@ -16,11 +16,9 @@ int main() {
   auto keys = record["projects"]["json"].keys();                     // ["year", "url", "commits/day"]
   auto query = record["projects"]["json"]["commits/day"].value();    // query = "5.21"
 
+  std::string record_string = record.to_string();                    // returns a string of the json
   record.print();                                                    // pretty prints json data
-
-  json record_clone;
-  record_clone["projects"] = record["projects"];
-  record_clone.write("clone.json");
+  record.write("clone.json");                                        // writes json to file
   
   system("PAUSE");
 }
