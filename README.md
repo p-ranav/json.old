@@ -38,10 +38,10 @@ int main() {
     {
         "json" :
         {
-            "commits/day" : "5.21",
+            "commits/day" : 5.21,
             "is this cool?" : true,
             "url" : "https://json.org",
-            "year" : "2017"
+            "year" : 2017
         },
         "llama" :
         {

@@ -7,6 +7,8 @@
 #include <sstream>
 #include <fstream>
 #include <typeinfo>
+#include <algorithm>
+#include <cctype>
 
 class json {
 public:
@@ -37,7 +39,12 @@ public:
   void write(std::string file_path);  // writes json to file at provided path
 
 private:
+
+  bool is_integer(const std::string& key); // returns true if key is an integer
+  bool is_double(const std::string& key);  // returns true if key is a double
+
   std::map<std::string, json*> object;
+  std::vector<json*> array;
 };
 
 // default constructor
@@ -133,6 +140,10 @@ std::string json::to_string(int indent,
         json_string += entry.first;
       else if (entry.first == "null")
         json_string += entry.first;
+      else if (is_integer(entry.first))
+        json_string += entry.first;
+      else if (is_double(entry.first))
+        json_string += entry.first;
       else
         json_string += '"' + entry.first + '"';
       if (comma_on_leaf)
@@ -186,4 +197,16 @@ void json::write(std::string file_path) {
   }
   else 
     std::cout << "Unable to open file: " << file_path;
+}
+
+bool json::is_integer(const std::string& key) {
+  return !key.empty() && std::find_if(key.begin(),
+    key.end(), [](char c) { return !std::isdigit(c); }) == key.end();
+}
+
+bool json::is_double(const std::string& key) {
+    std::istringstream iss(key);
+    double number;
+    iss >> std::noskipws >> number;
+    return iss.eof() && !iss.fail();
 }
