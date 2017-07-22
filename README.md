@@ -59,6 +59,12 @@ int main() {
 }
 ```
 
+## TODO
+
+* Support for arrays
+* Loading JSON from file
+* Advanced search features
+
 ## LICENSE
 
 Copyright (c) 2017 Pranav Srinivas Kumar <pranav.srinivas.kumar@gmail.com>
