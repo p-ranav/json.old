@@ -15,8 +15,11 @@ public:
 
   // Overloaded Operators
   json& operator[](std::string key);  // overloaded index/subscript operator
-  template<typename Type>
-  json& operator=(Type rhs);          // overloaded assignment operator
+
+  json& operator=(int rhs);           // assign to integer
+  json& operator=(double rhs);        // assign to double
+  json& operator=(bool rhs);          // assign to boolean
+  json& operator=(json * rhs);        // assign to nullptr
 
   // Getters
   auto keys();                        // returns json keys at current level
@@ -46,19 +49,33 @@ json& json::operator[](std::string key) {
   }
 }
 
-// overloaded assignment operator.
-// converts input data to string and stores in json
-// TODO: check if conversion to string is possible/successful 
-template<typename Type>
-json& json::operator=(Type rhs) {
-  if (typeid(rhs) == typeid(true)) { // check if boolean
-    std::string bool_str = (static_cast<bool>(rhs) == true)? "true" : "false";
+// json value can be integer
+json& json::operator=(int rhs) {
+  std::ostringstream convert;
+  convert << rhs;
+  data.insert(std::pair<std::string, json*>(convert.str(), nullptr));
+  return (*this);
+}
+
+// json value can be double
+json& json::operator=(double rhs) {
+  std::ostringstream convert;
+  convert << rhs;
+  data.insert(std::pair<std::string, json*>(convert.str(), nullptr));
+  return (*this);
+}
+
+// json value can be boolean
+json& json::operator=(bool rhs) {
+    std::string bool_str = (rhs == true)? "true" : "false";
     data.insert(std::pair<std::string, json*>(bool_str, nullptr));
-  }
-  else {
-    std::ostringstream convert;
-    convert << rhs;
-    data.insert(std::pair<std::string, json*>(convert.str(), nullptr));
+  return (*this);
+}
+
+// json value can be null
+json& json::operator=(json * rhs) {
+  if (rhs == nullptr) {
+    data.insert(std::pair<std::string, json*>("null", nullptr));
   }
   return (*this);
 }
@@ -92,10 +109,12 @@ std::string json::to_string(int indent,
   for (auto& entry : data) {
     if (entry.second == nullptr) {
       leaf_node = true;
-      if (entry.first != "true" && entry.first != "false")
-        json_string += '"' + entry.first + '"';
-      else 
+      if (entry.first == "true" || entry.first == "false")
         json_string += entry.first;
+      else if (entry.first == "null")
+        json_string += entry.first;
+      else
+        json_string += '"' + entry.first + '"';
       if (comma_on_leaf)
         json_string += ',';
     }

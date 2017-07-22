@@ -15,9 +15,11 @@ int main() {
 
   record["projects"]["llama"]["language"] = "C++";
   record["projects"]["llama"]["domain"] = "Linear Algebra";
+  record["projects"]["llama"]["url"] = nullptr;                      // value of type null
 
   record["projects"]["rosmod"]["language"] = "C++/Python";
   record["projects"]["rosmod"]["url"] = "https://github.com/rosmod";
+  record["projects"]["rosmod"]["active?"] = false;
 
   auto keys = record["projects"]["json"].keys();                     // ["year", "url", "commits/day"]
   auto query = record["projects"]["json"]["commits/day"].value();    // query = "5.21"
@@ -37,19 +39,21 @@ int main() {
         "json" :
         {
             "commits/day" : "5.21",
-            "cool?" : true,
-            "url" : "https://json.org",
+            "is this cool?" : true,
+            "url" : true,
             "year" : "2017"
         },
         "llama" :
         {
-            "domain" : "Linear Algebra",
-            "language" : "C++"
+            "domain" : true,
+            "language" : true,
+            "url" : null
         },
         "rosmod" :
         {
-            "language" : "C++/Python",
-            "url" : "https://github.com/rosmod"
+            "active?" : false,
+            "language" : true,
+            "url" : true
         }
     }
 }
