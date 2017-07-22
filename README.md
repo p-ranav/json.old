@@ -1,8 +1,6 @@
 # JSON Manipulation Library for C++
 
-## Usage Guide
-
-### Source Code
+## Creating and Querying JSON
 
 ```cpp
 #include <json.h>
@@ -16,12 +14,12 @@ int main() {
 
   auto keys = record["projects"]["json"].keys();                     // ["year", "url", "commits/day"]
   auto query = record["projects"]["json"]["commits/day"].value();    // query = "5.21"
-
-  record.print();                                                    // pretty print of JSON
+  
+  record.print();                                                    // pretty print that JSON!
 }
 ```
 
-### Console
+## Pretty Print JSON to console
 
 ```json
 {
