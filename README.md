@@ -1,6 +1,6 @@
 # JSON Manipulation Library for C++
 
-## Trivially create and manipulate JSON
+## Trivially create and manipulate JSON with one header
 
 ```cpp
 #include <json.h>
