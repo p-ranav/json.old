@@ -16,10 +16,11 @@ public:
   // Overloaded Operators
   json& operator[](std::string key);  // overloaded index/subscript operator
 
+  json& operator=(const char * rhs);  // assign to const char array
+  json& operator=(std::string rhs);   // assign to string
   json& operator=(int rhs);           // assign to integer
   json& operator=(double rhs);        // assign to double
   json& operator=(bool rhs);          // assign to boolean
-  json& operator=(json * rhs);        // assign to nullptr
 
   // Getters
   auto keys();                        // returns json keys at current level
@@ -49,6 +50,19 @@ json& json::operator[](std::string key) {
   }
 }
 
+json& json::operator=(const char * rhs) {
+  if (rhs != nullptr)
+    data.insert(std::pair<std::string, json*>(std::string(rhs), nullptr));
+  else
+    data.insert(std::pair<std::string, json*>("null", nullptr));
+  return (*this);
+}
+
+json& json::operator=(std::string rhs) {
+  data.insert(std::pair<std::string, json*>(rhs, nullptr));
+  return (*this);
+}
+
 // json value can be integer
 json& json::operator=(int rhs) {
   std::ostringstream convert;
@@ -69,14 +83,6 @@ json& json::operator=(double rhs) {
 json& json::operator=(bool rhs) {
     std::string bool_str = (rhs == true)? "true" : "false";
     data.insert(std::pair<std::string, json*>(bool_str, nullptr));
-  return (*this);
-}
-
-// json value can be null
-json& json::operator=(json * rhs) {
-  if (rhs == nullptr) {
-    data.insert(std::pair<std::string, json*>("null", nullptr));
-  }
   return (*this);
 }
 

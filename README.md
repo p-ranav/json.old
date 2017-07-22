@@ -40,20 +40,20 @@ int main() {
         {
             "commits/day" : "5.21",
             "is this cool?" : true,
-            "url" : true,
+            "url" : "https://json.org",
             "year" : "2017"
         },
         "llama" :
         {
-            "domain" : true,
-            "language" : true,
+            "domain" : "Linear Algebra",
+            "language" : "C++",
             "url" : null
         },
         "rosmod" :
         {
             "active?" : false,
-            "language" : true,
-            "url" : true
+            "language" : "C++/Python",
+            "url" : "https://github.com/rosmod"
         }
     }
 }
