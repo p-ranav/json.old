@@ -11,6 +11,7 @@ int main() {
   record["projects"]["json"]["year"] = 2017;                         // value of type integer
   record["projects"]["json"]["url"] = "https://json.org";            // value of type string
   record["projects"]["json"]["commits/day"] = 5.21;                  // value of type double
+  record["projects"]["json"]["cool?"] = true;                        // value of type bool
 
   record["projects"]["llama"]["language"] = "C++";
   record["projects"]["llama"]["domain"] = "Linear Algebra";
@@ -36,6 +37,7 @@ int main() {
         "json" :
         {
             "commits/day" : "5.21",
+            "cool?" : true,
             "url" : "https://json.org",
             "year" : "2017"
         },

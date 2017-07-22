@@ -6,6 +6,7 @@ int main() {
   record["projects"]["json"]["year"] = 2017;                         
   record["projects"]["json"]["url"] = "https://json.org";            
   record["projects"]["json"]["commits/day"] = 5.21;
+  record["projects"]["json"]["cool?"] = true;
 
   record["projects"]["llama"]["language"] = "C++";
   record["projects"]["llama"]["domain"] = "Linear Algebra";

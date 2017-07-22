@@ -6,6 +6,7 @@
 #include <map>
 #include <sstream>
 #include <fstream>
+#include <typeinfo>
 
 class json {
 public:
@@ -50,9 +51,15 @@ json& json::operator[](std::string key) {
 // TODO: check if conversion to string is possible/successful 
 template<typename Type>
 json& json::operator=(Type rhs) {
-  std::ostringstream convert;
-  convert << rhs;
-  data.insert(std::pair<std::string, json*>(convert.str(), nullptr));
+  if (typeid(rhs) == typeid(true)) { // check if boolean
+    std::string bool_str = (static_cast<bool>(rhs) == true)? "true" : "false";
+    data.insert(std::pair<std::string, json*>(bool_str, nullptr));
+  }
+  else {
+    std::ostringstream convert;
+    convert << rhs;
+    data.insert(std::pair<std::string, json*>(convert.str(), nullptr));
+  }
   return (*this);
 }
 
@@ -85,7 +92,10 @@ std::string json::to_string(int indent,
   for (auto& entry : data) {
     if (entry.second == nullptr) {
       leaf_node = true;
-      json_string += '"' + entry.first + '"';
+      if (entry.first != "true" && entry.first != "false")
+        json_string += '"' + entry.first + '"';
+      else 
+        json_string += entry.first;
       if (comma_on_leaf)
         json_string += ',';
     }
