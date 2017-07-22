@@ -20,6 +20,7 @@ int main() {
 
   json record_clone;
   record_clone["projects"] = record["projects"];
-
+  record_clone.write("clone.json");
+  
   system("PAUSE");
 }
